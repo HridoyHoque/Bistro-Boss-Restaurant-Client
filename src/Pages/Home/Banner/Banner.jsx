@@ -10,25 +10,25 @@ import slider6 from '../../../assets/home/06.png'
 const Banner = () => {
     return (
         <Carousel>
-                <div>
-                    <img src={slider1} />
-                </div>
-                <div>
-                    <img src={slider2} />
-                </div>
-                <div>
-                    <img src={slider3} />
-                </div>
-                <div>
-                    <img src={slider4} />
-                </div>
-                <div>
-                    <img src={slider5} />
-                </div>
-                <div>
-                    <img src={slider6} />
-                </div>
-            </Carousel>
+            <div>
+                <img src={slider1} />
+            </div>
+            <div>
+                <img src={slider2} />
+            </div>
+            <div>
+                <img src={slider3} />
+            </div>
+            <div>
+                <img src={slider4} />
+            </div>
+            <div>
+                <img src={slider5} />
+            </div>
+            <div>
+                <img src={slider6} />
+            </div>
+        </Carousel>
     );
 };
 
