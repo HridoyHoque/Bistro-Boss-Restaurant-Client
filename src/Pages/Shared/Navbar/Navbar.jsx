@@ -1,13 +1,16 @@
 import { useContext } from "react";
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import useCart from "../../../Hooks/useCart";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [cart] = useCart();
 
     const handleLogout = () => {
         logOut()
-            .then(() => {})
+            .then(() => { })
             .catch(error => console.log(error))
     }
 
@@ -17,11 +20,14 @@ const Navbar = () => {
             <li><Link to="/menu">Menu</Link></li>
             <li><Link to="/Order/salad">Order Food</Link></li>
             <li><Link to="/secret">Secret</Link></li>
+            <li><Link><button className="btn">
+               <AiOutlineShoppingCart size={24}/>
+                <div className="badge badge-secondary">+{cart?.length || 0}</div>
+            </button></Link></li>
 
             {user ? <>
-            <span>{user?.displayName}</span>
-            <button onClick={handleLogout} className="btn btn-ghost">LogOut</button></>
-             :
+                <button onClick={handleLogout} className="btn btn-ghost">LogOut</button></>
+                :
                 <><li><Link to="/login">Login</Link></li></>}
         </>
     return (
