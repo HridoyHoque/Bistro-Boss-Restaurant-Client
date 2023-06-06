@@ -4,12 +4,15 @@ import { AiOutlineMenu, AiFillShopping } from 'react-icons/ai';
 import { MdOutlineSupportAgent } from 'react-icons/md';
 import { ImSpoonKnife } from 'react-icons/im';
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 
 const Dashboard = () => {
 
     const [cart] = useCart();
-    const isAdmin = true;
+    // const isAdmin = true;
+
+    const {isAdmin} = useAdmin()
     return (
         <div className="drawer drawer-mobile">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
