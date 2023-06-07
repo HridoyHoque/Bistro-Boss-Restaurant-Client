@@ -2,10 +2,12 @@ import { FaTrashAlt } from "react-icons/fa";
 import UseMenu from "../../Hooks/UseMenu";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 const ManageItems = () => {
-
+    const [menu, , refetch] = UseMenu()
+    const [axiosSecure] = useAxiosSecure()
     const handleDelete = item => {
         Swal.fire({
             title: 'Are you sure?',
@@ -14,18 +16,27 @@ const ManageItems = () => {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
+            confirmButtonText: `Yes, delete it!, ${item.name}`
+        }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
+
+                axiosSecure.delete(`/menu/${item._id}`)
+                    .then(res => {
+                        console.log('deleted res', res.data);
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+
             }
-          })
-    } 
-    const [menu] = UseMenu()
+        })
+    }
+
     return (
         <div className="w-full">
             <SectionTitle subHeading="Hurry up" heading="Manage All Items"></SectionTitle>
@@ -43,36 +54,36 @@ const ManageItems = () => {
                         </tr>
                     </thead>
                     <tbody>
-                       {
-                        menu.map((item, index) => <tr key={item._id}>
-                            <td>
-                             {index + 1}
-                            </td>
-                            <td>
-                                <div className="flex items-center space-x-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle w-12 h-12">
-                                            <img src={item.image}/>
+                        {
+                            menu.map((item, index) => <tr key={item._id}>
+                                <td>
+                                    {index + 1}
+                                </td>
+                                <td>
+                                    <div className="flex items-center space-x-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle w-12 h-12">
+                                                <img src={item.image} />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">{item.name}</div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <div className="font-bold">{item.name}</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                               {item.category} 
-                            </td>
-                            <td className="text-right">${item.price}</td>
-                            <td>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </td>
-                            <td>
-                            <button onClick={() => handleDelete(item)} className="btn btn-ghost btn-lg text-red-600"><FaTrashAlt></FaTrashAlt></button>
-                            </td>
-                        </tr>)
-                       }
-                        
+                                </td>
+                                <td>
+                                    {item.category}
+                                </td>
+                                <td className="text-right">${item.price}</td>
+                                <td>
+                                    <button className="btn btn-ghost btn-xs">details</button>
+                                </td>
+                                <td>
+                                    <button onClick={() => handleDelete(item)} className="btn btn-ghost btn-lg text-red-600"><FaTrashAlt></FaTrashAlt></button>
+                                </td>
+                            </tr>)
+                        }
+
                     </tbody>
                 </table>
             </div>
