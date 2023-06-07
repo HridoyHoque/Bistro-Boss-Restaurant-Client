@@ -13,7 +13,7 @@ import Dashboard from "../Layout/Dashboard";
 import MyCart from "../Pages/Dashboard/MyCart/MyCart";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
-const router = createBrowserRouter([
+ const router = createBrowserRouter([
     {
       path: "/",
       element: <Main></Main>,
@@ -54,12 +54,12 @@ const router = createBrowserRouter([
         },
         {
           path: 'allusers',
-          element:<AllUsers></AllUsers>
+          element: <AllUsers></AllUsers>
         }
       ]
     }
   ]);
 
-  export default router
+export default router
 
 

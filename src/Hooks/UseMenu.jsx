@@ -8,8 +8,8 @@ const UseMenu = () => {
         fetch('http://localhost:5000/menu')
         .then(res => res.json())
         .then(data => {
-                setLoading(false)  
                  setMenu(data)
+                 setLoading(false) 
         })
     },[])
     return [menu, loading]
